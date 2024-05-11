@@ -1,1 +1,12 @@
 
+pandas 
+numoy
+scipy
+h5py
+json
+csv
+pickle
+dill
+PIL
+
+#.e -

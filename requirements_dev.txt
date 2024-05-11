@@ -1,0 +1,20 @@
+pandas 
+numoy
+scipy
+h5py
+json
+csv
+pickle
+dill
+PIL
+
+
+# dev requirements -
+
+pytest==7.1.3   #to test
+tox==3.25.1   #to create testing invironment
+black==22.8.0  # a linting tool,to check that the code is following the protocol or not
+flake8==5.0.4  # a linting tool,to check that the code is following the protocol or not
+mypy==0.971    # a linting tool,to check that the code is following the protocol or not
+
+-e .
