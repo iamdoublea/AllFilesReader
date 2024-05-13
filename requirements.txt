@@ -1,6 +1,6 @@
 
 pandas 
-numoy
+numpy
 scipy
 h5py
 json
