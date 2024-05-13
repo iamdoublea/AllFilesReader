@@ -2,8 +2,6 @@ pandas
 numpy
 scipy
 h5py
-json
-csv
 pickle
 dill
 pillow

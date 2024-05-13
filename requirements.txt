@@ -3,7 +3,6 @@ pandas
 numpy
 scipy
 h5py
-csv
 pickle
 dill
 pillow
