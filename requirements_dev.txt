@@ -1,4 +1,4 @@
-pandas 
+pandas
 numpy
 scipy
 h5py
@@ -6,7 +6,7 @@ json
 csv
 pickle
 dill
-PIL
+pillow
 
 
 # dev requirements -
