@@ -8,7 +8,7 @@ import json
 import h5py
 import pickle
 from PIL import Image   
-from src.all_files_reader.filereader_crud import DataReader 
+from ..all_files_reader.filereader_crud import DataReader
 
 class TestDataReader(unittest.TestCase):
 
