@@ -1,9 +1,4 @@
-import os
-import sys
-from pathlib import Path
-
 import pandas as pd
-import numpy as np
 import scipy.io as sio
 import h5py
 import json
@@ -13,28 +8,38 @@ from PIL import Image
 
 
 class DataReader:
-        """
+    """
     A class for reading data from various file formats.
 
     Supports: CSV, Excel, JSON, MAT, HDF5, TXT, Pickle, JPG images
 
     Args:
         data_path (str): The path to the data file.
+
+    Raises:
+        FileNotFoundError: If the data file is not found.
+        IOError: If an error occurs during file reading.
     """
-        def __init__(self,data_path:str):
-            self.data_path=data_path
 
+    def __init__(self, data_path: str):
+        self.data_path = data_path
 
-        def read(self):
-            """
-            Reads the data from the specified file path.
+    def read(self) -> object:
+        """
+        Reads the data from the specified file path.
 
-            Returns:
-                object: The data loaded from the file, or 'File Not Accepted'
-                        if the file format is not supported.
-            """
-            extension = self.data_path.lower()
+        Returns:
+            object: The data loaded from the file, or 'File Not Accepted'
+                    if the file format is not supported.
 
+        Raises:
+            FileNotFoundError: If the data file is not found.
+            IOError: If an error occurs during file reading.
+        """
+
+        extension = self.data_path.lower()
+
+        try:
             if extension[-4:] == '.csv':
                 return pd.read_csv(self.data_path)
             elif extension[-5:] == '.xlsx':
@@ -57,4 +62,7 @@ class DataReader:
                 return Image.open(self.data_path)
             else:
                 return 'File Not Accepted'
-
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Data file not found: {self.data_path}")
+        except IOError as e:
+            raise IOError(f"Error reading data: {str(e)}")
