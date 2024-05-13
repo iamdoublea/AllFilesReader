@@ -2,7 +2,6 @@ pandas
 numpy
 scipy
 h5py
-pickle
 dill
 pillow
 
