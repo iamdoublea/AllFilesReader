@@ -10,13 +10,13 @@ import pickle
 from PIL import Image 
 import sys 
 sys.path.append("./")  
-from src.all_files_reader.filereader_crud import DataReader
+from all_files_reader.filereader_crud import DataReader
 
 class TestDataReader(unittest.TestCase):
 
     def test_read_csv(self):
         """Tests reading a CSV file."""
-        data_path = 'tests\\test_data\\Student_Satisfaction_Survey.csv'  
+        data_path = 'tests/test_data/Student_Satisfaction_Survey.csv'  
         reader = DataReader(data_path)
         data = reader.read()
         self.assertIsInstance(data, pd.DataFrame)  # Check if data is a pandas DataFrame

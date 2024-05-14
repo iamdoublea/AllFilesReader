@@ -5,7 +5,7 @@ import os
 import sys
 
 sys.path.append("./")
-from src.all_files_reader.filereader_crud import DataReader
+from all_files_reader.filereader_crud import DataReader
 
 
 def test_data_reader_integration():
@@ -16,7 +16,7 @@ def test_data_reader_integration():
     """
 
     # Test CSV
-    data_path = os.path.join('tests\\test_data', 'Student_Satisfaction_Survey.csv')
+    data_path = os.path.join('tests/test_data', 'Student_Satisfaction_Survey.csv')
     reader = DataReader(data_path)
     data = reader.read()
     # Perform additional assertions on the CSV data if needed
