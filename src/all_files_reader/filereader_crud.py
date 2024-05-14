@@ -28,7 +28,7 @@ class DataReader:
         UnsupportedFormatError: If the file format is not supported.
     """
 
-    def __init__(self,  data_path:  str,  default_encoding="utf-8"):
+    def __init__(self, data_path: str, default_encoding="utf-8"):
         self.data_path = data_path
         self.default_encoding = default_encoding
         self.logger = logging.getLogger(__name__)  # Set up logger
@@ -84,15 +84,13 @@ class DataReader:
                             return pickle.load(pickle_file)
                     elif extension[-4:] == '.jpg' or extension == '.jpeg':
                         return Image.open(self.data_path)
-                    else:
-                        raise UnsupportedFormatError(f"Unsupported file format: {extension}")  # Handle unexpected extensions
                 else:
                     raise UnsupportedFormatError(f"Unsupported file format: {extension}")
         except FileNotFoundError:
             raise FileNotFoundError(f"Data file not found: {self.data_path}")
         except IOError as e:
             raise IOError(f"Error reading data: {str(e)}")
-        except Exception as e:  # Generic exception handler (optional)
+        except Exception as e:  # Optional generic exception handler
             self.logger.error(f"Unexpected error reading data: {str(e)}")
             raise  # Re-raise the exception
 
