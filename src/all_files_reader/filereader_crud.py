@@ -11,7 +11,7 @@ class DataReader:
     """
     A class for reading data from various file formats.
 
-    Supports: CSV, Excel, JSON, MAT, HDF5, TXT (with encoding detection), Pickle, JPG images
+    Supports: CSV, Excel, JSON, MAT, HDF5, Pickle, JPG images
 
     Args:
         data_path (str): The path to the data file.
@@ -63,21 +63,15 @@ class DataReader:
             elif extension[-3:] == '.h5':
                 with h5py.File(self.data_path, 'r') as hdf5_file:
                     return hdf5_file['data'][:]
-            elif extension in ('.txt', '.py'):
-                try:
-                    with open(self.data_path, 'r', encoding="utf-8") as txt_file:
-                        return txt_file.read()
-                except UnicodeDecodeError:
-                    with open(self.data_path, 'rb') as binary_file:
-                        rawdata = binary_file.read()
-                        encoding = chardet.detect(rawdata)['encoding'] if chardet is not None else 'utf-8'
-                        with open(self.data_path, 'r', encoding=encoding) as txt_file:
-                            return txt_file.read()
-            elif extension[-4:] == '.pkl':
-                with open(self.data_path, 'rb') as pickle_file:
-                    return pickle.load(pickle_file)
-            elif extension[-4:] == '.jpg' or extension == '.jpeg':
-                return Image.open(self.data_path)
+            elif extension in ('.pkl', '.jpg', '.jpeg'):  # Removed txt and py extensions
+                # Handle supported formats (pickle, jpg, jpeg)
+                if extension == '.pkl':
+                    with open(self.data_path, 'rb') as pickle_file:
+                        return pickle.load(pickle_file)
+                elif extension[-4:] == '.jpg' or extension == '.jpeg':
+                    return Image.open(self.data_path)
+                else:
+                    raise ValueError(f"Unsupported file format: {extension}")  # Handle unexpected extensions
             else:
                 return 'File Not Accepted'
         except FileNotFoundError:
@@ -85,4 +79,4 @@ class DataReader:
         except IOError as e:
             raise IOError(f"Error reading data: {str(e)}")
         except UnicodeDecodeError as e:
-            raise UnicodeDecodeError(f"Error decoding data: {str(e)}")
+            raise UnicodeDecodeError(f"Error decoding data: {str(e)}") from e  # Include original exception
