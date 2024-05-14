@@ -28,7 +28,7 @@ class DataReader:
         UnsupportedFormatError: If the file format is not supported.
     """
 
-    def __init__(self,  data_path: str,  default_encoding="utf-8"):
+    def __init__(self,  data_path:  str,  default_encoding="utf-8"):
         self.data_path = data_path
         self.default_encoding = default_encoding
         self.logger = logging.getLogger(__name__)  # Set up logger
