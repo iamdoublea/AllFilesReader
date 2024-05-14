@@ -51,8 +51,8 @@ class DataReader:
             if extension[-4:] == '.csv':
                 try:
                     return pd.read_csv(self.data_path, encoding=encoding)
-                except UnicodeDecodeError:
-                    raise UnicodeDecodeError(f"Failed to decode CSV with chardet encoding: {encoding}")
+                except UnicodeDecodeError as e:
+                    raise UnicodeDecodeError(f"Failed to decode CSV with chardet encoding: {encoding}") from e
             elif extension[-5:] == '.xlsx':
                 return pd.read_excel(self.data_path)
             elif extension[-5:] == '.json':
