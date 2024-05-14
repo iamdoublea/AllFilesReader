@@ -4,7 +4,7 @@ import h5py
 import pickle
 import json
 from PIL import Image
-import chardet  # Optional, install with `pip install chardet`
+import chardet
 
 
 class DataReader:
@@ -19,7 +19,8 @@ class DataReader:
     Raises:
         FileNotFoundError: If the data file is not found.
         IOError: If an error occurs during file reading.
-        UnicodeDecodeError: If there's an issue decoding the file's content.
+        UnicodeDecodeError: If there's an issue decoding the file's content
+            even after chardet detection.
     """
 
     def __init__(self, data_path: str):
@@ -36,34 +37,33 @@ class DataReader:
         Raises:
             FileNotFoundError: If the data file is not found.
             IOError: If an error occurs during file reading.
-            UnicodeDecodeError: If there's an issue decoding the file's content.
+            UnicodeDecodeError: If there's an issue decoding the file's content
+                even after chardet detection.
         """
 
         extension = self.data_path.lower()
 
         try:
+            with open(self.data_path, 'rb') as data_file:
+                raw_data = data_file.read()
+                encoding = chardet.detect(raw_data)['encoding']
+
             if extension[-4:] == '.csv':
                 try:
-                    return pd.read_csv(self.data_path, encoding="utf-8", errors='ignore')
+                    return pd.read_csv(self.data_path, encoding=encoding)
                 except UnicodeDecodeError:
-                    encodings = ["latin-1", "cp1252", "ISO-8859-1"]
-                    for encoding in encodings:
-                        try:
-                            return pd.read_csv(self.data_path, encoding=encoding)
-                        except UnicodeDecodeError:
-                            pass
-                    raise UnicodeDecodeError("Failed to decode CSV with common encodings")
+                    raise UnicodeDecodeError(f"Failed to decode CSV with chardet encoding: {encoding}")
             elif extension[-5:] == '.xlsx':
                 return pd.read_excel(self.data_path)
             elif extension[-5:] == '.json':
-                with open(self.data_path, 'r') as json_file:
+                with open(self.data_path, 'r', encoding=encoding) as json_file:
                     return json.load(json_file)
             elif extension[-4:] == '.mat':
                 return sio.loadmat(self.data_path)
             elif extension[-3:] == '.h5':
                 with h5py.File(self.data_path, 'r') as hdf5_file:
                     return hdf5_file['data'][:]
-            elif extension in ('.pkl', '.jpg', '.jpeg'):  # Removed txt and py extensions
+            elif extension in ('.pkl', '.jpg', '.jpeg'):
                 # Handle supported formats (pickle, jpg, jpeg)
                 if extension == '.pkl':
                     with open(self.data_path, 'rb') as pickle_file:
@@ -79,4 +79,4 @@ class DataReader:
         except IOError as e:
             raise IOError(f"Error reading data: {str(e)}")
         except UnicodeDecodeError as e:
-            raise UnicodeDecodeError(f"Error decoding data: {str(e)}") from e  # Include original exception
+            raise UnicodeDecodeError(f"Error decoding data with chardet: {str(e)}") from e
