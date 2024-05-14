@@ -4,6 +4,7 @@ import h5py
 import pickle
 import json
 from PIL import Image
+import chardet  # Optional, install with `pip install chardet`
 
 
 class DataReader:
@@ -42,9 +43,8 @@ class DataReader:
 
         try:
             if extension[-4:] == '.csv':
-                # Try UTF-8 first, then attempt common encodings if it fails
                 try:
-                    return pd.read_csv(self.data_path, encoding="utf-8",errors='ignore')
+                    return pd.read_csv(self.data_path, encoding="utf-8", errors='ignore')
                 except UnicodeDecodeError:
                     encodings = ["latin-1", "cp1252", "ISO-8859-1"]
                     for encoding in encodings:
@@ -64,21 +64,15 @@ class DataReader:
                 with h5py.File(self.data_path, 'r') as hdf5_file:
                     return hdf5_file['data'][:]
             elif extension in ('.txt', '.py'):
-                # Detect encoding using chardet library (optional)
-                # You might need to install chardet (`pip install chardet`)
-                # from chardet import detect
-                # with open(self.data_path, 'rb') as txt_file:
-                #     rawdata = txt_file.read()
-                #     result = detect(rawdata)
-                #     encoding = result['encoding'] if result['encoding'] is not None else 'utf-8'
-                #     return txt_file.read().decode(encoding)
-                with open(self.data_path, 'r', encoding="utf-8") as txt_file:
-                    try:
+                try:
+                    with open(self.data_path, 'r', encoding="utf-8") as txt_file:
                         return txt_file.read()
-                    except UnicodeDecodeError:
-                        # Optional: Fallback to reading in binary mode for non-text files
-                        with open(self.data_path, 'rb') as binary_file:
-                            return binary_file.read()
+                except UnicodeDecodeError:
+                    with open(self.data_path, 'rb') as binary_file:
+                        rawdata = binary_file.read()
+                        encoding = chardet.detect(rawdata)['encoding'] if chardet is not None else 'utf-8'
+                        with open(self.data_path, 'r', encoding=encoding) as txt_file:
+                            return txt_flake8_errors
             elif extension[-4:] == '.pkl':
                 with open(self.data_path, 'rb') as pickle_file:
                     return pickle.load(pickle_file)
@@ -88,5 +82,7 @@ class DataReader:
                 return 'File Not Accepted'
         except FileNotFoundError:
             raise FileNotFoundError(f"Data file not found: {self.data_path}")
-        except (IOError, UnicodeDecodeError) as e:
+        except IOError as e:
             raise IOError(f"Error reading data: {str(e)}")
+        except UnicodeDecodeError as e:
+            raise UnicodeDecodeError(f"Error decoding data: {str(e)}")
