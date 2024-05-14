@@ -16,7 +16,7 @@ def test_data_reader_integration():
     """
 
     # Test CSV
-    data_path = os.path.join('test_data', 'tests\Student_Satisfaction_Survey.csv')
+    data_path = os.path.join('tests\\test_data', 'Student_Satisfaction_Survey.csv')
     reader = DataReader(data_path)
     data = reader.read()
     # Perform additional assertions on the CSV data if needed
