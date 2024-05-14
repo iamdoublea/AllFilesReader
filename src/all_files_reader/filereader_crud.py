@@ -96,6 +96,7 @@ class DataReader:
             self.logger.error(f"Unexpected error reading data: {str(e)}")
             raise  # Re-raise the exception
 
+
 class UnsupportedFormatError(Exception):
     """Custom exception for unsupported file formats."""
     pass
