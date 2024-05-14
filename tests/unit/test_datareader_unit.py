@@ -7,8 +7,10 @@ import pandas as pd
 import json
 import h5py
 import pickle
-from PIL import Image   
-from ..all_files_reader.filereader_crud import DataReader
+from PIL import Image 
+import sys 
+sys.path.append("./")  
+from src.all_files_reader.filereader_crud import DataReader
 
 class TestDataReader(unittest.TestCase):
 

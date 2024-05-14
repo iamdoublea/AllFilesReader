@@ -2,7 +2,11 @@
 #To make sure all the components are working well with each other
 
 import os
-from ..all_files_reader.filereader_crud import DataReader
+import sys
+
+sys.path.append("./")
+from src.all_files_reader.filereader_crud import DataReader
+
 
 def test_data_reader_integration():
     """Tests DataReader with actual file reading (integration test).
