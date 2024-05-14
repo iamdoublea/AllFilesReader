@@ -45,7 +45,7 @@ class DataReader:
             if extension[-4:] == '.csv':
                 # Try UTF-8 first, then attempt common encodings if it fails
                 try:
-                    return pd.read_csv(self.data_path, encoding="utf-8")
+                    return pd.read_csv(self.data_path, encoding="utf-8",errors='ignore')
                 except UnicodeDecodeError:
                     encodings = ["latin-1", "cp1252", "ISO-8859-1"]
                     for encoding in encodings:
