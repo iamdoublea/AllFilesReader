@@ -72,7 +72,7 @@ class DataReader:
                         rawdata = binary_file.read()
                         encoding = chardet.detect(rawdata)['encoding'] if chardet is not None else 'utf-8'
                         with open(self.data_path, 'r', encoding=encoding) as txt_file:
-                            return txt_flake8_errors
+                            return txt_file.read()
             elif extension[-4:] == '.pkl':
                 with open(self.data_path, 'rb') as pickle_file:
                     return pickle.load(pickle_file)

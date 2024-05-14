@@ -4,6 +4,7 @@ scipy
 h5py
 dill
 pillow
+chardet
 
 
 # dev requirements -
