@@ -7,3 +7,6 @@ dill
 pillow
 chardet
 -e .
+
+
+# -e . tells Python to use the current directory's code directly, as if it were installed as a package, which is useful for development purposes.

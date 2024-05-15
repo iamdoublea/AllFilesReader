@@ -5,7 +5,7 @@ import os
 import sys
 
 sys.path.append("./")
-from all_files_reader.filereader_crud import DataReader
+from src.all_files_reader.filereader_crud import DataReader
 
 
 def test_data_reader_integration():
