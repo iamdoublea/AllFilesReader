@@ -86,6 +86,9 @@ class DataReader:
                         return Image.open(self.data_path)
                 else:
                     raise UnsupportedFormatError(f"Unsupported file format: {extension}")
+
+            # Return 'File Not Accepted' for unsupported formats
+            return 'File Not Accepted'
         except FileNotFoundError:
             raise FileNotFoundError(f"Data file not found: {self.data_path}")
         except IOError as e:
