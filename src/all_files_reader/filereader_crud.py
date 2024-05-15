@@ -6,7 +6,7 @@ import json
 from PIL import Image
 import chardet
 import logging
-from exception.exception import CustomException
+from src.exception.exception import CustomException
 
 
 class DataReader:
