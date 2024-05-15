@@ -3,7 +3,6 @@ from typing import List
 
 with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()     
-   
 
 __version__ = "0.0.7"
 REPO_NAME = "AllFilesReaderPythonLibrary"
@@ -18,11 +17,11 @@ setup(
     author_email=AUTHOR_EMAIL,
     description="A python package to read all kinds of file with just one click",
     long_description=long_description,
-    long_description_content="text/markdown",
+    long_description_content_type="text/markdown",  # Corrected argument name
     url=f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}",
     project_urls={
         "Bug Tracker": f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}/issues"
     },
     package_dir={"": "src"},
     packages=find_packages(where="src"),
-    )
+)
