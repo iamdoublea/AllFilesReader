@@ -6,7 +6,6 @@ import json
 from PIL import Image
 import chardet
 import logging
-from src.exception.exception import CustomException
 
 
 class DataReader:
@@ -67,7 +66,7 @@ class DataReader:
                     try:
                         return pd.read_csv(self.data_path, encoding=encoding)
                     except UnicodeDecodeError as e:
-                        raise CustomException(f"Error decoding CSV with encoding: {encoding}") from e
+                        raise UnicodeDecodeError(f"Error decoding CSV with encoding: {encoding}") from e
                 elif extension[-5:] == '.xlsx':
                     return pd.read_excel(self.data_path)
                 elif extension[-5:] == '.json':
