@@ -2,9 +2,9 @@ Sure, here's a concise and informative project description for your Python libra
 
 ---
 
-## AllFilesReaderPythonLibrary
+## AllFilesReader
 
-The **AllFilesReaderPythonLibrary** is a versatile Python library designed to simplify the process of reading various types of files with just one click. Whether you need to read CSV, Excel, JSON, MAT, HDF5, Pickle, or JPG images, this library has got you covered.
+The **AllFilesReader** is a versatile Python library designed to simplify the process of reading various types of files with just one click. Whether you need to read CSV, Excel, JSON, MAT, HDF5, Pickle, or JPG images, this library has got you covered.
 
 ### Key Features:
 
@@ -25,7 +25,7 @@ pip install AllFilesReaderPythonLibrary
 ### Usage:
 
 ```python
-from AllFilesReaderPythonLibrary import DataReader
+from all_files_reader.filereader_crud import DataReader
 
 # Example usage
 reader = DataReader("path/to/your/file.csv")
