@@ -19,7 +19,7 @@ The **AllFilesReader** is a versatile Python library designed to simplify the pr
 ### Installation:
 
 ```bash
-pip install AllFilesReaderPythonLibrary
+pip install AllFilesReader
 ```
 
 ### Usage:
