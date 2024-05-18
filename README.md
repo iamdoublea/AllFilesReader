@@ -25,7 +25,7 @@ pip install AllFilesReaderPythonLibrary
 ### Usage:
 
 ```python
-from AllFilesReaderPythonLibrary import DataReader
+from all_files_reader.filereader_crud import DataReader
 
 # Example usage
 reader = DataReader("path/to/your/file.csv")
