@@ -23,7 +23,7 @@ class DataReader:
     Raises:
         FileNotFoundError: If the data file is not found.
         IOError: If an error occurs during file reading.
-        UnicodeDecodeError: If there's an issue decoding the file's content
+        CustomDecodeError: If there's an issue decoding the file's content
             even with chardet and default encoding.
         UnsupportedFormatError: If the file format is not supported.
     """
@@ -44,7 +44,7 @@ class DataReader:
         Raises:
             FileNotFoundError: If the data file is not found.
             IOError: If an error occurs during file reading.
-            UnicodeDecodeError: If there's an issue decoding the file's content
+            CustomDecodeError: If there's an issue decoding the file's content
                 even with chardet and default encoding.
             UnsupportedFormatError: If the file format is not supported.
         """
@@ -66,7 +66,7 @@ class DataReader:
                     try:
                         return pd.read_csv(self.data_path, encoding=encoding)
                     except UnicodeDecodeError as e:
-                        raise UnicodeDecodeError(f"Error decoding CSV with encoding: {encoding}") from e
+                        raise CustomDecodeError(f"Error decoding CSV with encoding: {encoding}") from e
                 elif extension[-5:] == '.xlsx':
                     return pd.read_excel(self.data_path)
                 elif extension[-5:] == '.json':
@@ -96,6 +96,11 @@ class DataReader:
         except Exception as e:  # Optional generic exception handler
             self.logger.error(f"Unexpected error reading data: {str(e)}")
             raise  # Re-raise the exception
+
+
+class CustomDecodeError(Exception):
+    """Custom exception for decoding errors."""
+    pass
 
 
 class UnsupportedFormatError(Exception):
