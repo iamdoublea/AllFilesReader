@@ -10,7 +10,7 @@ import pickle
 from PIL import Image 
 import sys 
 sys.path.append("./")  
-from src.all_files_reader.filereader_crud import DataReader
+from all_files_reader.filereader import DataReader
 
 class TestDataReader(unittest.TestCase):
 
