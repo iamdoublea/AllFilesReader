@@ -37,6 +37,4 @@ print(data)
 
 Get started with the **AllFilesReaderPythonLibrary** today and streamline your file reading tasks in Python.
 
----
 
-Feel free to customize the project description further to highlight any additional features or unique aspects of your library!
